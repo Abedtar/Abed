@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            overflow: hidden;
+        }
+
+        #message {
+            font-size: 24px;
+            margin-top: 20%;
+            color: #333;
+        }
+
+        #yesButton {
+            padding: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        #noButton {
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        #noButton:hover, #yesButton:hover {
+            opacity: 0.8;
+        }
+
+        .cat {
+            width: 100px;
+            height: 100px;
+            background-color: #ADD8E6;
+            border-radius: 50%;
+            display: inline-block;
+            margin-top: 20px;
+            animation: shake 0.5s infinite;
+        }
+
+        .happy-cat {
+            background-color: #ADD8E6;
+            animation: none;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(10px); }
+        }
+    </style>
+</head>
+<body>
+    <div id="message">Fareda...Can I have your Father's Number?!</div>
+    <button id="noButton" onclick="nextMessage()">No</button>
+    <button id="yesButton" onclick="showHappiness()">Yes</button>
+    <div id="cat" class="cat"></div>
+
+    <audio id="bg-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-littleidea.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        let messageIndex = 0;
+        const messages = [
+            "Are you sure?",
+            "Can you think again?",
+            "I will be sad...",
+            "I will be very sad",
+            "I will be very very sad",
+            "I will be very very very sad"
+        ];
+
+        const noButton = document.getElementById('noButton');
+        const yesButton = document.getElementById('yesButton');
+        const messageDiv = document.getElementById('message');
+        const catDiv = document.getElementById('cat');
+        const bgMusic = document.getElementById('bg-music');
+
+        bgMusic.play();  // Start background music automatically
+
+        function nextMessage() {
+            if (messageIndex < messages.length) {
+                messageDiv.innerHTML = messages[messageIndex];
+                messageIndex++;
+                catDiv.classList.add('shake');
+            } else {
+                noButton.style.display = 'none';  // Hide No button after last message
+                yesButton.style.transform = 'scale(3)';
+                yesButton.style.transition = 'transform 1s';
+            }
+        }
+
+        function showHappiness() {
+            messageDiv.innerHTML = "Yay! I'm so happy!";
+            catDiv.classList.remove('shake');
+            catDiv.classList.add('happy-cat');
+            noButton.style.display = 'none';
+            yesButton.style.transform = 'scale(1)';
+            yesButton.style.transition = 'transform 1s';
+        }
+    </script>
+</body>
+</html>
